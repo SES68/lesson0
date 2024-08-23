@@ -69,9 +69,12 @@ class Knight(Thread):
             print(self.name, ' на нас напали!' )
 
         while (100 - self.power * self.day) > 0:
-            print(self.name, "сражается", self.day , "день(дня)..., осталось",(100 - self.power * self.day), "воинов.")
+            print(self.name, "сражается", self.day , "день(дня)..., осталось",(100 - self.power * self.day), "воинов.", end = '\n')
             self.day += 1
             sleep(1)
+        else:
+            print(self.name, "одержал победу спустя", self.day, "дней(дня)!"),
+
 
 first_knight = Knight('Sir Lancelot', 10)
 second_knight = Knight("Sir Galahad", 20)
