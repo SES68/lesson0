@@ -102,10 +102,6 @@ async def inform (message):
 async def main_menu(message):
     await message.answer('Название: ', reply_markup = kb_inline)
 
-
-# Измените функцию get_buying_list в модуле с Telegram-ботом, используя вместо обычной нумерации продуктов функцию get_all_products.
-# Полученные записи используйте в выводимой надписи:
-# "Название: <title> | Описание: <description> | Цена: <price>"
 @dp.message_handler(text='Купить')
 async def get_buying_list(message):
     for index, product in enumerate(get_all_products()):        # Функция  enumerate()  позволяет пройтись по итерируемому объекту (например, списку, кортежу, строке)# и на каждой итерации возвращает кортеж, содержащий индекс элемента и сам  лемент.
@@ -115,7 +111,7 @@ async def get_buying_list(message):
     await message.answer("Выберите продукт для покупки: ", reply_markup = kb_Products)
 
 
-    await message.answer('Выберите продукцию:', reply_markup=inline_products)
+    # await message.answer('Выберите продукцию:', reply_markup=inline_products)
 @dp.callback_query_handler(text= 'product_buying')
 async def send_confirm_message(call):
     await call.message.answer('Вы успешно приобрели выбранный Вами продукт!')
@@ -160,60 +156,3 @@ if __name__ == "__main__":
     executor.start_polling(dp,  skip_updates = True)
 # =======================================================
 
-
-
-
-
-
-
-
-
-
-
-
-
-# Создайте файл crud_functions.py и напишите там следующие функции:
-# initiate_db, которая создаёт таблицу Products, если она ещё не создана при помощи SQL запроса.
-# Эта таблица должна содержать следующие поля:
-
-# id - целое число, первичный ключ
-# title(название продукта) - текст (не пустой)
-# description(описание) - тест
-# price(цена) - целое число (не пустой)
-
-# get_all_products, которая возвращает все записи из таблицы Products, полученные при помощи SQL запроса.
-
-# import sqlite3
-#
-# def initiate_db():                                 # id, title, description, price
-#     connection = sqlite3.connect("Products.db")
-#     cursor = connection.cursor()
-#
-#     cursor.execute('''
-#     CREATE TABLE IF NOT EXISTS Products(
-#     id INTEGER PRIMARY KEY,
-#     title TEXT NOT NULL,
-#     description TEXT,
-#     price INTEGER NOT NULL
-#     )
-#     ''')
-#
-#     # for i in range(4):
-#     #     cursor.execute("INSERT INTO Products (id, title, description, price) VALUES (?,?,?,?)",
-#     #                    (i+1, f"Продукт №{i+1}", f"Описание продукта №{i+1}", (i+1)*1000))
-#     # connection.commit()
-#     # connection.close()
-#
-#
-#
-# def get_all_products():
-#     connection = sqlite3.connect("Products.db")
-#     cursor = connection.cursor()
-#     cursor.execute('SELECT * FROM Products')
-#     products = cursor.fetchall()
-#     return products
-#     connection.commit()
-#     connection.close()
-
-# products = get_all_products()
-# print(products[1])
